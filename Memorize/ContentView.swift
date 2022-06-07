@@ -21,22 +21,23 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-  //  var isFaceUp: Bool { return false }
+    var isFaceUp: Bool = true
     
     var body: some View {
         ZStack {
-            //if isFaceUp {
-                RoundedRectangle(cornerRadius: 20)
+            var shape = RoundedRectangle(cornerRadius: 20)
+            if isFaceUp {
+                shape
                     .fill()
                     .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 20)
+                shape
                     .stroke(lineWidth: 3)
                 Text("🎾")
                     .font(.largeTitle)
-          //  } else {
-             //   RoundedRectangle(cornerRadius: 20)
-                 //   .fill()
-            //}
+            } else {
+                shape
+                    .fill()
+            }
         }
     }
 }
