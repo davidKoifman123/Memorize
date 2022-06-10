@@ -8,22 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    var vehichles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
+   @State var vehichles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
     
-    var sport = ["⚽️", "🏀", "🏈", "🏸", "🥎", "🏉", "🏓", "🥊"]
+   @State var sport = ["⚽️", "🏀", "🏈", "🏸", "🥎", "🏉", "🏓", "🥊"]
     
-    var food = ["🍏", "🍈", "🍞", "🌽", "🥚", "🧇", "🥗", "🥝"]
+   @State var food = ["🍏", "🍈", "🍞", "🌽", "🥚", "🧇", "🥗", "🥝"]
+    
+  @State var mainArray = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
+    
     
     //@State var arrayCount = [Int]()
+    //TODO: add main array
+    //TODO: improve this array
     
-    @State var emojiCount = 24
+    @State var emojiCount = [24, 8, 8]
+    @State var indexCounter = 0
     
     var body: some View {
+        //mainArray = vehichles
         VStack {
-            Text("Memorize!")
+            Text("Memorize!").font(.title)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(vehichles[0..<emojiCount], id: \.self) { emoji in
+                ForEach(mainArray[0..<emojiCount[indexCounter]], id: \.self) { emoji in
                     CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                 }
             }
@@ -44,28 +51,33 @@ struct ContentView: View {
 }
     
     
-    var foodTheme: some View {
-        Button(action: {
-                }, label: {
-                    Text("Food")
-         })
-    }
-        
     var vehiclesTheme: some View {
         Button(action: {
+            indexCounter = 0
+            mainArray = vehichles
+            }, label: {
+                Text("Vehicle")
+        })
+   }
+    
+    var foodTheme: some View {
+        Button(action: {
+            indexCounter = 1
+            self.mainArray = food
                 }, label: {
-                    Text("Vehicle")
+                    Text("Food")
          })
     }
     
     var sportTheme: some View {
         Button(action: {
+           indexCounter = 2
+            self.mainArray = sport
                 }, label: {
                     Text("Sport")
          })
     }
 }
-
 
 struct CardView: View {
     var content: String
