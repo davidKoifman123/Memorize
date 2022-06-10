@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //TODO: deal with redudncay
    @State var vehichles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
     
    @State var sport = ["⚽️", "🏀", "🏈", "🏸", "🥎", "🏉", "🏓", "🥊"]
@@ -54,27 +56,31 @@ struct ContentView: View {
     var vehiclesTheme: some View {
         Button(action: {
             indexCounter = 0
-            mainArray = vehichles
+            mainArray = vehichles.shuffled()
             }, label: {
-                Text("Vehicle")
+                VStack {
+                Text("Vehicle").font(.custom("Helvetica Neue", size: 20))
+                  //  Image(systemName: "car.fill")
+                }
         })
    }
     
     var foodTheme: some View {
         Button(action: {
             indexCounter = 1
-            self.mainArray = food
+            self.mainArray = food.shuffled()
                 }, label: {
-                    Text("Food")
+                    Text("Food").font(.custom("Helvetica Neue", size: 20))
+                     Image(systemName: "")
          })
     }
     
     var sportTheme: some View {
         Button(action: {
            indexCounter = 2
-            self.mainArray = sport
+            self.mainArray = sport.shuffled()
                 }, label: {
-                    Text("Sport")
+                    Text("Sport").font(.custom("Helvetica Neue", size: 20))
          })
     }
 }
