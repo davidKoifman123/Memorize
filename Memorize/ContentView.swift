@@ -8,16 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
+    var vehichles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
+    
+    var sport = ["⚽️", "🏀", "🏈", "🏸", "🥎", "🏉", "🏓", "🥊"]
+    
+    var food = ["🍏", "🍈", "🍞", "🌽", "🥚", "🧇", "🥗", "🥝"]
+    
+    //@State var arrayCount = [Int]()
+    
     @State var emojiCount = 24
     
     var body: some View {
         VStack {
             Text("Memorize!")
-                .font(.title)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
+                ForEach(vehichles[0..<emojiCount], id: \.self) { emoji in
                     CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                 }
             }
@@ -25,16 +31,41 @@ struct ContentView: View {
         .foregroundColor(.red)
         Spacer()
         HStack {
-                remove
-                Spacer()
-                add
+            vehiclesTheme
+              Spacer()
+            foodTheme
+              Spacer()
+            sportTheme
             }
             .font(.largeTitle)
             .padding(.horizontal)
     }
         .padding(.horizontal)
- }
 }
+    
+    
+    var foodTheme: some View {
+        Button(action: {
+                }, label: {
+                    Text("Food")
+         })
+    }
+        
+    var vehiclesTheme: some View {
+        Button(action: {
+                }, label: {
+                    Text("Vehicle")
+         })
+    }
+    
+    var sportTheme: some View {
+        Button(action: {
+                }, label: {
+                    Text("Sport")
+         })
+    }
+}
+
 
 struct CardView: View {
     var content: String
