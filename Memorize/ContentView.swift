@@ -60,7 +60,7 @@ struct ContentView: View {
             }, label: {
                 VStack {
                 Text("Vehicle").font(.custom("Helvetica Neue", size: 20))
-                  //  Image(systemName: "car.fill")
+                    Image(systemName: "car.fill")
                 }
         })
    }
@@ -70,8 +70,10 @@ struct ContentView: View {
             indexCounter = 1
             self.mainArray = food.shuffled()
                 }, label: {
+                    VStack {
                     Text("Food").font(.custom("Helvetica Neue", size: 20))
-                     Image(systemName: "")
+                     Image(systemName: "globe.americas")
+                    }
          })
     }
     
@@ -80,7 +82,10 @@ struct ContentView: View {
            indexCounter = 2
             self.mainArray = sport.shuffled()
                 }, label: {
+                    VStack {
                     Text("Sport").font(.custom("Helvetica Neue", size: 20))
+                    Image(systemName: "person")
+                    }
          })
     }
 }
