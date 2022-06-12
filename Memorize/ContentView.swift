@@ -10,84 +10,23 @@ import SwiftUI
 struct ContentView: View {
     
     //TODO: deal with redudncay
-   @State var vehichles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
+   @State var emojis = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
     
-   @State var sport = ["⚽️", "🏀", "🏈", "🏸", "🥎", "🏉", "🏓", "🥊"]
-    
-   @State var food = ["🍏", "🍈", "🍞", "🌽", "🥚", "🧇", "🥗", "🥝"]
-    
-  @State var mainArray = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
-    
-    
-    //@State var arrayCount = [Int]()
-    //TODO: add main array
-    //TODO: improve this array
-    
-    @State var emojiCount = [24, 8, 8]
-    @State var indexCounter = 0
+    @State var emojiCount = 20
     
     var body: some View {
-        //mainArray = vehichles
         VStack {
-            Text("Memorize!").font(.title)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(mainArray[0..<emojiCount[indexCounter]], id: \.self) { emoji in
+                ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
                     CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                 }
             }
       }
         .foregroundColor(.red)
-        Spacer()
-        HStack {
-            vehiclesTheme
-              Spacer()
-            foodTheme
-              Spacer()
-            sportTheme
-            }
-            .font(.largeTitle)
-            .padding(.horizontal)
     }
         .padding(.horizontal)
 }
-    
-    
-    var vehiclesTheme: some View {
-        Button(action: {
-            indexCounter = 0
-            mainArray = vehichles.shuffled()
-            }, label: {
-                VStack {
-                Text("Vehicle").font(.custom("Helvetica Neue", size: 20))
-                    Image(systemName: "car.fill")
-                }
-        })
-   }
-    
-    var foodTheme: some View {
-        Button(action: {
-            indexCounter = 1
-            self.mainArray = food.shuffled()
-                }, label: {
-                    VStack {
-                    Text("Food").font(.custom("Helvetica Neue", size: 20))
-                     Image(systemName: "globe.americas")
-                    }
-         })
-    }
-    
-    var sportTheme: some View {
-        Button(action: {
-           indexCounter = 2
-            self.mainArray = sport.shuffled()
-                }, label: {
-                    VStack {
-                    Text("Sport").font(.custom("Helvetica Neue", size: 20))
-                    Image(systemName: "person")
-                    }
-         })
-    }
 }
 
 struct CardView: View {
