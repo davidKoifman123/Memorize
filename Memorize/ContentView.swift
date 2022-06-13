@@ -38,6 +38,8 @@ struct CardView: View {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
+            } else if card.isMathched {
+                shape.opacity(0)
             } else {
                 shape.fill()
             }
