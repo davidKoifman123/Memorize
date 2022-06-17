@@ -14,7 +14,7 @@ class EmojiMemoryGame: ObservableObject {
     
     //TODO: Handle out of range
   private static func createMemoryGame() -> MemoryGame<String> {
-      MemoryGame<String>(numberOfPairsOfCards:  emojis.count) { pairIndex in
+      MemoryGame<String>(numberOfPairsOfCards: 6) { pairIndex in
         EmojiMemoryGame.emojis[pairIndex]
      }
     }
