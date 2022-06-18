@@ -17,6 +17,8 @@
 		967F00D72855070200459EDD /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F00D62855070200459EDD /* MemoryGame.swift */; };
 		967F00DB28550BD800459EDD /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F00DA28550BD800459EDD /* EmojiMemoryGame.swift */; };
 		96D9760B285BA7D4004DDBE6 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D9760A285BA7D4004DDBE6 /* AspectVGrid.swift */; };
+		96DBEC77285DD7B600E8049E /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DBEC76285DD7B600E8049E /* Cardify.swift */; };
+		96E53CD4285C89A4003D2F3D /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E53CD3285C89A4003D2F3D /* Pie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		967F00D62855070200459EDD /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = SOURCE_ROOT; };
 		967F00DA28550BD800459EDD /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
 		96D9760A285BA7D4004DDBE6 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
+		96DBEC76285DD7B600E8049E /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
+		96E53CD3285C89A4003D2F3D /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 				967F00DA28550BD800459EDD /* EmojiMemoryGame.swift */,
 				9608C2D8284E500700B5C560 /* MemorizeApp.swift */,
 				9608C2DA284E500700B5C560 /* EmojiMemoryGameView.swift */,
+				96E53CD3285C89A4003D2F3D /* Pie.swift */,
+				96DBEC76285DD7B600E8049E /* Cardify.swift */,
 				96D9760A285BA7D4004DDBE6 /* AspectVGrid.swift */,
 				9608C2DC284E500900B5C560 /* Assets.xcassets */,
 				9608C2DE284E500900B5C560 /* Preview Content */,
@@ -266,6 +272,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E53CD4285C89A4003D2F3D /* Pie.swift in Sources */,
+				96DBEC77285DD7B600E8049E /* Cardify.swift in Sources */,
 				967F00D72855070200459EDD /* MemoryGame.swift in Sources */,
 				9608C2DB284E500700B5C560 /* EmojiMemoryGameView.swift in Sources */,
 				9608C2D9284E500700B5C560 /* MemorizeApp.swift in Sources */,
