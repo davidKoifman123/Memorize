@@ -1,0 +1,59 @@
+struct Node {
+    int data;
+    Node* next;
+    Node(int data) {
+        this->data = data;
+        next = nullptr;
+    }
+};
+
+struct Stack{
+    Node* top;
+    int size;
+    Stack(){
+        top = nullptr;
+        size = 0;
+    }
+
+    void push(int data){
+        Node* node = new Node(data);
+        node->next = top;
+        top = node;
+        size++;
+    }
+
+    int pop(){
+        if (size == 0) {
+            throw "Stack is empty";
+        }
+        int data = top->data;
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+        size--;
+        return data;
+    }
+
+    int peek(){
+        if (size == 0) {
+            throw "Stack is empty";
+        }
+        return top->data;
+    }
+
+    bool isEmpty(){
+        return size == 0;
+    }
+
+    void clear(){
+        while (size > 0) {
+            pop();
+        }
+    }
+
+    int getSize(){
+        return size;
+    }
+
+
+};
