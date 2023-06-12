@@ -1,0 +1,157 @@
+#pragma once
+
+#include <string>
+
+struct Node {
+    int data;
+    Node *next;
+    Node *prev;
+
+    Node() : data(0), next(nullptr), prev(nullptr) {}
+};
+
+struct LinkedList {
+    Node *head;
+    Node *tail;
+    int size;
+    const int NO_VALUE = -1000000;
+
+    LinkedList() {
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+    }
+
+    void push_back(int data) {
+        Node* newNode = new Node();
+        newNode->data = data;
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    void push_front(int data) {
+        Node* newNode = new Node();
+        newNode->data = data;
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+        size++;
+    }
+
+    Node* findIndex(int index) {
+        if (index < 0 || index >= size) {
+            return nullptr;
+        }
+        Node* current;
+        if (index < size / 2) {
+            current = head;
+            for (int i = 0; i < index; i++) {
+                current = current->next;
+            }
+        } else {
+            current = tail;
+            for (int i = size - 1; i > index; i--) {
+                current = current->prev;
+            }
+        }
+        return current;
+    }
+
+    int pop_back() {
+        if (size == 0) {
+            return NO_VALUE;
+        }
+        int data = tail->data;
+        if (size == 1) {
+            delete tail;
+            head = nullptr;
+            tail = nullptr;
+        } else {
+            tail = tail->prev;
+            delete tail->next;
+            tail->next = nullptr;
+        }
+        size--;
+        return data;
+    }
+
+    int pop_front() {
+        if (size == 0) {
+            return NO_VALUE;
+        }
+        int data = head->data;
+        if (size == 1) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+        } else {
+            head = head->next;
+            delete head->prev;
+            head->prev = nullptr;
+        }
+        size--;
+        return data;
+    }
+
+    bool insert(int data, int index){
+        if (index < 0 || index > size) {
+            return false;
+        }
+        if (index == 0) {
+            push_front(data);
+        } else if (index == size) {
+            push_back(data);
+        } else {
+            Node* newNode = new Node();
+            newNode->data = data;
+            Node* current = findIndex(index);
+            newNode->next = current;
+            newNode->prev = current->prev;
+            current->prev->next = newNode;
+            current->prev = newNode;
+            size++;
+        }
+        return true;
+    }
+
+    bool deleteIndex(int index){
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        if (index == 0) {
+            pop_front();
+        } else if (index == size - 1) {
+            pop_back();
+        } else {
+            Node* current = findIndex(index);
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+            delete current;
+            size--;
+
+        }
+        return true;
+    }
+
+    std::string toString() const {
+        std::string result;
+        Node* current = head;
+        while (current != nullptr) {
+            result += std::to_string(current->data) + " ";
+            current = current->next;
+        }
+        return result;
+    }
+};
