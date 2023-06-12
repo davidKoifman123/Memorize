@@ -1,0 +1,126 @@
+#include <string>
+#include <vector>
+#include <list>
+
+using namespace std;
+
+struct HashSetElement {
+    string data;
+    size_t hash;
+
+    void incrementCount() {
+        count++;
+    }
+
+    void decrementCount() {
+        count--;
+    }
+
+    size_t getCount() const {
+        return count;
+    }
+
+    HashSetElement(string data, size_t hash) : data(data), hash(hash), count(1) {}
+
+    bool operator==(const HashSetElement &other) const {
+        return data == other.data;
+    }
+
+    bool operator<(const HashSetElement &other) const {
+        return data < other.data;
+    }
+
+    bool operator>(const HashSetElement &other) const {
+        return data > other.data;
+    }
+
+    bool operator<=(const HashSetElement &other) const {
+        return data <= other.data;
+    }
+
+    bool operator>=(const HashSetElement &other) const {
+        return data >= other.data;
+    }
+
+private:
+    size_t count;
+};
+
+struct HashTable {
+    const double MAX_LOAD_FACTOR = 0.7;
+
+    HashTable() : buckets(10), size(0) {}
+
+    //TODO: implement the following methods:
+    //1. insert
+    bool insert(const string &s) {
+        if (size + 1 >= buckets.size() * 0.7) {
+            rehash();
+        }
+        size_t hash = hash_func(s);
+        size_t index = hash % buckets.size();
+        for (auto &p: buckets[index]) {
+            if (p.data == s) {
+                p.incrementCount();
+                return false;
+            }
+        }
+        buckets[index].emplace_back(s, hash);
+        size++;
+        return true;
+    }
+
+    //2. lookup
+    int lookup(const string &s) {
+        size_t hash = hash_func(s);
+        size_t index = hash % buckets.size();
+        for (auto &p: buckets[index]) {
+            if (p.data == s) {
+                return p.getCount();
+            }
+        }
+        return 0;
+    }
+
+    //3. remove
+    bool remove(const string &s) {
+        size_t hash = hash_func(s);
+        size_t index = hash % buckets.size();
+        for (auto &p: buckets[index]) {
+            if (p.data == s) {
+                if (p.getCount() == 1) {
+                    auto lst = buckets[index];
+                    lst.remove(p);
+                    size--;
+                }
+                p.decrementCount();
+                return true;
+            }
+        }
+        return false;
+    }
+
+private:
+    vector<list<HashSetElement>> buckets;
+    size_t size;
+
+
+    size_t hash_func(const string &s) {
+        size_t hash = 0;
+        for (auto c: s) {
+            hash += c;
+        }
+        return hash;
+    }
+
+    void rehash() {
+        vector<list<HashSetElement>> new_buckets(buckets.size() * 2);
+        for (auto &bucket: buckets) {
+            for (auto &p: bucket) {
+                size_t index = p.hash % new_buckets.size();
+                new_buckets[index].emplace_back(p);
+            }
+        }
+        buckets = new_buckets;
+    }
+};
