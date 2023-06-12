@@ -1,0 +1,31 @@
+#include "LinkedList.h"
+
+struct Queue{
+    LinkedList list;
+
+    Queue() : list() {}
+
+    void enqueue(int data){
+        list.push_back(data);
+    }
+
+    int dequeue(){
+        return list.pop_front();
+    }
+
+    int peek_front(){
+        return list.head->data;
+    }
+
+    int peek_back(){
+        return list.tail->data;
+    }
+
+    int size(){
+        return list.size;
+    }
+
+    bool isEmpty(){
+        return list.size == 0;
+    }
+};
