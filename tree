@@ -1,0 +1,187 @@
+#include <cmath>
+#include <stdio.h>
+#include <vector>
+#include <functional>
+#include <stack>
+
+class BinarySearchTreeSet;
+
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+    Node *parent;
+
+    Node(int data, Node *left, Node *right, Node *parent) {
+        this->data = data;
+        this->left = left;
+        this->right = right;
+        this->parent = parent;
+    }
+
+    Node(int data, Node *parent) {
+        this->data = data;
+        this->parent = parent;
+        this->left = nullptr;
+        this->right = nullptr;
+    }
+
+};
+
+class BinarySearchTreeSet {
+public:
+
+    BinarySearchTreeSet() {
+        root = nullptr;
+        size = 0;
+    }
+
+    void insert(int data) {
+        if (root == nullptr) {
+            root = new Node(data, nullptr);
+            size++;
+            return;
+        }
+        insertRecursive(data, root);
+    }
+
+
+    Node *lookup(int data) {
+        if (root == nullptr) {
+            return nullptr;
+        }
+        Node *current = root;
+        while (current != nullptr) {
+            if (data < current->data) {
+                current = current->left;
+            } else if (data > current->data) {
+                current = current->right;
+            } else {
+                return current;
+            }
+        }
+        return nullptr;
+    }
+
+    void in_order_print() {
+        in_order_traversal(root, [](Node* data) { printf("%d ", data->data); });
+    }
+
+    void in_order_traversal(void (*f) (Node*)) {
+        if (root == nullptr) {
+            return;
+        }
+        in_order_traversal(root, f);
+    }
+
+    void remove(int data) {
+        Node *e = lookup(data);
+        removeNode(e);
+    }
+
+    //destructors
+    ~BinarySearchTreeSet() {
+        if (root == nullptr)
+            return;
+        post_order_traversal(root, [](Node* data) { delete data; });
+    }
+private:
+    Node *root;
+    int size;
+
+
+    void insertRecursive(int data, Node *root) {
+        if (root == nullptr)
+            return;
+        if (data < root->data) {
+            if (root->left == nullptr) {
+                root->left = new Node(data, root);
+                size++;
+                return;
+            }
+            insertRecursive(data, root->left);
+        } else if (data > root->data) {
+            if (root->right == nullptr) {
+                root->right = new Node(data, root);
+                size++;
+                return;
+            }
+            insertRecursive(data, root->right);
+        } else {
+            return;
+        }
+    }
+
+    void removeNode(Node *e) {
+        if (e == nullptr)
+            return;
+        if (e->left == nullptr && e->right == nullptr) {
+            if (e->parent->left == e)
+                e->parent->left = nullptr;
+            else
+                e->parent->right = nullptr;
+            delete e;
+            size--;
+        } else if (e->left != nullptr) {
+            if (e->parent->left == e)
+                e->parent->left = e->left;
+            else
+                e->parent->right = e->left;
+            e->left->parent = e->parent;
+            delete e;
+            size--;
+        } else if (e->right != nullptr) {
+            if (e->parent->left == e)
+                e->parent->left = e->right;
+            else
+                e->parent->right = e->right;
+            e->right->parent = e->parent;
+            delete e;
+            size--;
+        } else {
+            Node *successor = minElement(e->right);
+            e->data = successor->data;
+            removeNode(successor);
+        }
+    }
+
+    void in_order_traversal(Node *e, void (*f) (Node*)) {
+        if (e == nullptr)
+            return;
+        in_order_traversal(e->left, f);
+        f(e);
+        in_order_traversal(e->right, f);
+    }
+
+    void post_order_traversal(Node *e, std::function<void(Node*)>f) {
+        if (e == nullptr)
+            return;
+        post_order_traversal(e->left, f);
+        post_order_traversal(e->right, f);
+        f(e);
+    }
+
+    void pre_order_traversal(Node *e, void (*f) (Node*)) {
+        if (e == nullptr)
+            return;
+        f(e);
+        pre_order_traversal(e->left, f);
+        pre_order_traversal(e->right, f);
+    }
+
+    Node *minElement(Node *e) {
+        if (e == nullptr)
+            return nullptr;
+        for (; e->left != nullptr; e = e->left);
+        return e;
+    }
+
+    Node *maxElement(Node *e) {
+        if (e == nullptr)
+            return nullptr;
+        if (e->right == nullptr)
+            return e;
+        return maxElement(e->right);
+    }
+
+};
