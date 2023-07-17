@@ -1,0 +1,185 @@
+#include <iostream>
+
+#include <queue>
+
+  struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  };
+
+using namespace std;
+
+//class Solution {
+//public:
+//    void deleteOperation(int key, TreeNode* root, string direction, TreeNode* ancestor) {
+//         if (!root)
+//         {
+//             return;
+//         }
+//
+//         if (root->val == key)
+//         {
+//            if (!root->left && !root->right) //leaf
+//            {
+//                if (direction == "left")
+//                {
+//                    ancestor->left = nullptr;
+//                } else  if (direction == "right")
+//                {
+//                    ancestor->right = nullptr;
+//                }
+//            } else if (!root->left && root->right)
+//            {
+//                if (direction == "left")
+//                {
+//                    ancestor->left = root->right;
+//                } else  if (direction == "right")
+//                {
+//                    ancestor->right = root->right;;
+//                }
+//            } else if (root->left && !root->right)
+//            {
+//                if (direction == "left")
+//                {
+//                    ancestor->left = root->left;
+//                } else  if (direction == "right")
+//                {
+//                    ancestor->right = root->left;;
+//                }
+//            } else if (root->left && !root->right)
+//            {
+//                if (direction == "left")
+//                {
+//                    ancestor->left = root->left;
+//                } else  if (direction == "right")
+//                {
+//                    ancestor->right = root->left;;
+//                }
+//            }
+//            else
+//            {
+//
+//            }
+//         }
+//
+//        deleteOperation(key, root->left, "left", root);
+//        deleteOperation(key, root->right, "right", root);
+//    }
+//
+//    TreeNode* findLeftMost(TreeNode* root)
+//    {
+//
+//        if (!root->left)
+//        {
+//            return root;
+//        }
+//
+//        findLeftMost(root->left);
+//    }
+//
+//    TreeNode* deleteNode(TreeNode* root, int key) {
+//
+//    }
+//};
+
+
+void preOrder(TreeNode* root)
+{
+    if (!root)
+    {
+        return;
+    }
+
+    cout << root->val << " ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+
+int sumTree(TreeNode* root)
+{
+
+    if (!root->right && !root->left)
+    {
+        return root->val;
+    }
+
+    int result = 0;
+    queue<TreeNode*> collection;
+    collection.push(root);
+    TreeNode* current;
+
+    while (!collection.empty() || !current)
+    {
+        current = collection.front();
+        collection.pop();
+
+        result += current->val;
+
+        if (current->left)
+        {
+            collection.push(current->left);
+        }
+
+        if (current->right)
+        {
+            collection.push(current->right);
+        }
+    }
+
+    return result - root->val;
+}
+
+bool isSumTree(TreeNode* root)
+{
+    if (!root)
+    {
+        return true;
+    }
+
+    if (root->val != sumTree(root))
+   {
+      return false;
+   }
+
+    cout << root->val << " ";
+    return isSumTree(root->left) && isSumTree(root->right);
+}
+
+int sum(TreeNode *root)
+{
+    if (root == NULL)
+        return 0;
+
+    return sum(root->left) + root->val +
+           sum(root->right);
+}
+
+int main() {
+    TreeNode* root = new TreeNode(26);
+    root->left = new TreeNode(10);
+    root->left->right = new TreeNode(6);
+    root->left->left = new TreeNode(4);
+    root->right = new TreeNode(3);
+    root->right->right = new TreeNode(3);
+
+
+    cout << sum(root) << endl;
+   // TreeNode* root = new TreeNode(10);
+   // root->left = new TreeNode(5);
+    //root->right = new TreeNode(5);
+
+    preOrder(root);
+    cout << endl;
+
+    if (isSumTree(root))
+    {
+        cout << "abcd" << endl;
+    }
+
+    return 0;
+}
